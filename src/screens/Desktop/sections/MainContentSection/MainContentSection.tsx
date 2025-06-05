@@ -62,6 +62,7 @@ export const MainContentSection = () => {
       ? filters.selectedClasses.filter(c => c !== selectedClass)
       : [...filters.selectedClasses, selectedClass];
     dispatch(setSelectedClasses(newSelection));
+    setShowClassDropdown(false);
   };
 
   const handleUnitSelect = (selectedUnit: string) => {
@@ -69,6 +70,7 @@ export const MainContentSection = () => {
       ? filters.selectedUnits.filter(u => u !== selectedUnit)
       : [...filters.selectedUnits, selectedUnit];
     dispatch(setSelectedUnits(newSelection));
+    setShowUnitDropdown(false);
   };
 
   const handleStatusSelect = (selectedStatus: string) => {
@@ -76,6 +78,7 @@ export const MainContentSection = () => {
       ? filters.selectedStatus.filter(s => s !== selectedStatus)
       : [...filters.selectedStatus, selectedStatus];
     dispatch(setSelectedStatus(newSelection));
+    setShowStatusDropdown(false);
   };
 
   const getSubjectIcon = () => {
