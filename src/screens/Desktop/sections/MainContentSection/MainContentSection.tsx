@@ -8,7 +8,7 @@ import { Separator } from "@/components/separator";
 import { mockData, getUniqueClasses, getUniqueUnits, getUniqueStatuses } from "@/data/chapter";
 import { toggleSortOrder, setSelectedClasses, setSelectedUnits, setSelectedStatus, toggleWeakChapters } from "@/store/slices/filterSlice";
 import type { RootState } from "@/store";
-import { Cube, Atom, Function, Calculator } from "phosphor-react";
+import { Cube, Atom, Function, Calculator, Beaker } from "phosphor-react";
 
 const getChapterIcon = (index: number) => {
   const icons = [Cube, Atom, Function, Calculator];
@@ -22,12 +22,17 @@ export const MainContentSection = () => {
   const [showUnitDropdown, setShowUnitDropdown] = useState(false);
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
 
-  const classes = useMemo(() => getUniqueClasses(mockData), []);
-  const units = useMemo(() => getUniqueUnits(mockData), []);
-  const statuses = useMemo(() => getUniqueStatuses(mockData), []);
+  const subjectData = useMemo(() => 
+    mockData.filter(chapter => chapter.subject === filters.selectedSubject),
+    [filters.selectedSubject]
+  );
+
+  const classes = useMemo(() => getUniqueClasses(subjectData), [subjectData]);
+  const units = useMemo(() => getUniqueUnits(subjectData), [subjectData]);
+  const statuses = useMemo(() => getUniqueStatuses(subjectData), [subjectData]);
 
   const filteredChapters = useMemo(() => {
-    let filtered = mockData.filter(chapter => chapter.subject === "Physics");
+    let filtered = subjectData;
 
     if (filters.selectedClasses.length > 0) {
       filtered = filtered.filter(chapter => filters.selectedClasses.includes(chapter.class));
@@ -50,7 +55,7 @@ export const MainContentSection = () => {
     }
 
     return filtered;
-  }, [filters]);
+  }, [filters, subjectData]);
 
   const handleClassSelect = (selectedClass: string) => {
     const newSelection = filters.selectedClasses.includes(selectedClass)
@@ -73,19 +78,34 @@ export const MainContentSection = () => {
     dispatch(setSelectedStatus(newSelection));
   };
 
+  const getSubjectIcon = () => {
+    switch (filters.selectedSubject) {
+      case 'Physics':
+        return Atom;
+      case 'Chemistry':
+        return Beaker;
+      case 'Mathematics':
+        return Calculator;
+      default:
+        return Atom;
+    }
+  };
+
+  const SubjectIcon = getSubjectIcon();
+
   return (
     <div className="flex flex-col w-full items-start bg-[#1b2132] border border-solid border-[#30435a]">
       <header className="flex flex-col w-full items-start pt-6 pb-4 px-6 bg-[#222e3f]">
         <div className="flex items-start w-full bg-[#222e3f]">
           <div className="flex flex-col items-start gap-4 flex-1">
             <div className="inline-flex items-center gap-4">
-              <Atom size={24} weight="fill" className="text-white" />
+              <SubjectIcon size={24} weight="fill" className="text-white" />
               <h1 className="font-bold text-white text-xl tracking-[0] leading-6">
-                Physics PYQs
+                {filters.selectedSubject} PYQs
               </h1>
             </div>
             <p className="text-[#b9bfd0] text-sm tracking-[0] leading-[18.2px]">
-              Chapter-wise Collection of Physics PYQs
+              Chapter-wise Collection of {filters.selectedSubject} PYQs
             </p>
           </div>
         </div>
