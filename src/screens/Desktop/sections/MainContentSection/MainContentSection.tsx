@@ -61,7 +61,7 @@ export const MainContentSection = () => {
     const newSelection = filters.selectedClasses.includes(selectedClass)
       ? filters.selectedClasses.filter(c => c !== selectedClass)
       : [...filters.selectedClasses, selectedClass];
-    dispatch(setSelectedClasses(newSelection));
+    dispatch(setSelectedClasses([selectedClass]));
     setShowClassDropdown(false);
   };
 
@@ -69,7 +69,7 @@ export const MainContentSection = () => {
     const newSelection = filters.selectedUnits.includes(selectedUnit)
       ? filters.selectedUnits.filter(u => u !== selectedUnit)
       : [...filters.selectedUnits, selectedUnit];
-    dispatch(setSelectedUnits(newSelection));
+    dispatch(setSelectedUnits([selectedUnit]));
     setShowUnitDropdown(false);
   };
 
@@ -77,7 +77,7 @@ export const MainContentSection = () => {
     const newSelection = filters.selectedStatus.includes(selectedStatus)
       ? filters.selectedStatus.filter(s => s !== selectedStatus)
       : [...filters.selectedStatus, selectedStatus];
-    dispatch(setSelectedStatus(newSelection));
+    dispatch(setSelectedStatus([selectedStatus]));
     setShowStatusDropdown(false);
   };
 
