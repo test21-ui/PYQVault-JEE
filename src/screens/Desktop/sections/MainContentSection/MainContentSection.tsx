@@ -8,7 +8,7 @@ import { Separator } from "@/components/separator";
 import { mockData, getUniqueClasses, getUniqueUnits, getUniqueStatuses } from "@/data/chapter";
 import { toggleSortOrder, setSelectedClasses, setSelectedUnits, setSelectedStatus, toggleWeakChapters } from "@/store/slices/filterSlice";
 import type { RootState } from "@/store";
-import { Cube, Atom, Function, Calculator, Beaker } from "phosphor-react";
+import { Cube, Atom, Function, Calculator, Flask } from "phosphor-react";
 
 const getChapterIcon = (index: number) => {
   const icons = [Cube, Atom, Function, Calculator];
@@ -83,7 +83,7 @@ export const MainContentSection = () => {
       case 'Physics':
         return Atom;
       case 'Chemistry':
-        return Beaker;
+        return Flask;
       case 'Mathematics':
         return Calculator;
       default:

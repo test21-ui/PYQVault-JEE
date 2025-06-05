@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSubject } from "@/store/slices/filterSlice";
 import type { RootState } from "@/store";
-import { Atom, Beaker, Calculator } from "phosphor-react";
+import { Atom, Flask, Calculator } from "phosphor-react";
 
 export const SecondaryNavigationSection = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const SecondaryNavigationSection = () => {
       id: 2,
       title: "Chemistry PYQs",
       subject: "Chemistry",
-      Icon: Beaker,
+      Icon: Flask,
     },
     {
       id: 3,
