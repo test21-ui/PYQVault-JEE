@@ -1,26 +1,33 @@
 import { ChevronRightIcon } from "lucide-react";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedSubject } from "@/store/slices/filterSlice";
+import type { RootState } from "@/store";
+import { Atom, Beaker, Calculator } from "phosphor-react";
 
 export const SecondaryNavigationSection = () => {
+  const dispatch = useDispatch();
+  const selectedSubject = useSelector((state: RootState) => state.filters.selectedSubject);
+
   // Navigation items data
   const navItems = [
     {
       id: 1,
       title: "Physics PYQs",
-      icon: "/subject-icons-2.svg",
-      active: true,
+      subject: "Physics",
+      Icon: Atom,
     },
     {
       id: 2,
       title: "Chemistry PYQs",
-      icon: "/subject-icons.svg",
-      active: false,
+      subject: "Chemistry",
+      Icon: Beaker,
     },
     {
       id: 3,
       title: "Mathematics PYQs",
-      icon: "/subject-icons-3.svg",
-      active: false,
+      subject: "Mathematics",
+      Icon: Calculator,
     },
   ];
 
@@ -49,15 +56,12 @@ export const SecondaryNavigationSection = () => {
         {navItems.map((item) => (
           <button
             key={item.id}
+            onClick={() => dispatch(setSelectedSubject(item.subject))}
             className={`flex h-12 items-center gap-4 px-4 py-3 w-full rounded-xl ${
-              item.active ? "bg-[#1d2933]" : "bg-[#222e3f]"
+              selectedSubject === item.subject ? "bg-[#1d2933]" : "bg-[#222e3f]"
             } hover:bg-[#1d2933] transition-colors`}
           >
-            <img
-              className="w-6 h-6"
-              alt={`${item.title} icon`}
-              src={item.icon}
-            />
+            <item.Icon size={24} weight="fill" className="text-white" />
             <span className="flex-1 font-label-sm-14 font-[number:var(--label-sm-14-font-weight)] text-white text-[length:var(--label-sm-14-font-size)] tracking-[var(--label-sm-14-letter-spacing)] leading-[var(--label-sm-14-line-height)]">
               {item.title}
             </span>

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface FiltersState {
+  selectedSubject: string;
   selectedClasses: string[];
   selectedUnits: string[];
   selectedStatus: string[];
@@ -9,6 +10,7 @@ interface FiltersState {
 }
 
 const initialState: FiltersState = {
+  selectedSubject: 'Physics',
   selectedClasses: [],
   selectedUnits: [],
   selectedStatus: [],
@@ -20,6 +22,13 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
+    setSelectedSubject: (state, action: PayloadAction<string>) => {
+      state.selectedSubject = action.payload;
+      // Reset filters when changing subject
+      state.selectedClasses = [];
+      state.selectedUnits = [];
+      state.selectedStatus = [];
+    },
     setSelectedClasses: (state, action: PayloadAction<string[]>) => {
       state.selectedClasses = action.payload;
     },
@@ -39,6 +48,7 @@ const filtersSlice = createSlice({
 });
 
 export const {
+  setSelectedSubject,
   setSelectedClasses,
   setSelectedUnits,
   setSelectedStatus,
